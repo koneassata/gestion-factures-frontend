@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from './authService';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/currencies';
+const API_URL = process.env.REACT_APP_API_URL || 'https://gestion-factures-backend-1.onrender.com';
 
 const getAuthHeaders = () => ({
   headers: {
