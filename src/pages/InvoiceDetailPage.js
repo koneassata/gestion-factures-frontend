@@ -48,8 +48,23 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
+  margin-right: 10px;
   &:hover {
     background-color: var(--secondary-color);
+  }
+`;
+
+const PrintButton = styled.button`
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 10px;
+  &:hover {
+    background-color: #218838;
   }
 `;
 
@@ -116,7 +131,12 @@ const InvoiceDetailPage = () => {
       
       <DetailItem><strong>Montant Total:</strong> {invoice.totalAmount.toFixed(2)} €</DetailItem>
 
-      <Button onClick={() => navigate('/invoices')}>Retour à la liste</Button>
+      <div>
+        <PrintButton onClick={() => navigate(`/invoices/${invoice._id}/print`)}>
+          Imprimer la Facture
+        </PrintButton>
+        <Button onClick={() => navigate('/invoices')}>Retour à la liste</Button>
+      </div>
     </PageContainer>
   );
 };

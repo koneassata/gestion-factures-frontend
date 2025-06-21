@@ -4,6 +4,7 @@ import CenteredFormWrapper from '../components/Forms/CenteredFormWrapper';
 import { useReactToPrint } from 'react-to-print';
 import invoiceService from '../services/invoiceService';
 import { useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../components/Common/ConfirmationModal';
 
 // Styles des composants (aucun changement ici, juste pour la complétude)
 const InvoiceForm = styled.form`
@@ -100,6 +101,7 @@ const CreateInvoicePage = () => {
 
   const printRef = useRef();
   const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -135,12 +137,9 @@ const CreateInvoicePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Facture à enregistrer:', invoiceData);
     try {
       const createdInvoice = await invoiceService.createInvoice(invoiceData);
-      console.log('Facture créée avec succès:', createdInvoice);
-      alert('Facture créée avec succès !');
-      navigate('/invoices');
+      setShowSuccessModal(true);
     } catch (error) {
       console.error('Erreur lors de la création de la facture:', error.response?.data?.message || error.message);
       alert('Erreur lors de la création de la facture: ' + (error.response?.data?.message || error.message));
@@ -221,7 +220,6 @@ const CreateInvoicePage = () => {
 
         <ButtonGroup>
           <PrimaryButton type="submit">Enregistrer la Facture</PrimaryButton>
-          <SecondaryButton type="button" onClick={handlePrint}>Imprimer la Facture</SecondaryButton>
         </ButtonGroup>
       </InvoiceForm>
 
@@ -244,6 +242,12 @@ const CreateInvoicePage = () => {
           <h3>Total: {Number(invoiceData.totalAmount).toFixed(2)} €</h3>
         </PrintableInvoice>
       </div>
+      <ConfirmationModal
+        isOpen={showSuccessModal}
+        message="Facture créée avec succès !"
+        onConfirm={() => { setShowSuccessModal(false); navigate('/invoices'); }}
+        onCancel={() => setShowSuccessModal(false)}
+      />
     </CenteredFormWrapper>
   );
 };

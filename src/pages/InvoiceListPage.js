@@ -76,6 +76,11 @@ const ActionButton = styled.button`
     color: white;
     &:hover { background-color: #c82333; }
   }
+  &.print {
+    background-color: #28a745;
+    color: white;
+    &:hover { background-color: #218838; }
+  }
 `;
 
 const InvoiceListPage = () => {
@@ -163,6 +168,7 @@ const InvoiceListPage = () => {
                     {/* Vous pouvez ajouter une page de détail ou d'édition ici */}
                     <ActionButton className="view" onClick={() => navigate(`/invoices/${invoice._id}`)}>Voir</ActionButton>
                     <ActionButton className="edit" onClick={() => navigate(`/invoices/edit/${invoice._id}`)}>Modifier</ActionButton>
+                    <ActionButton className="print" onClick={() => navigate(`/invoices/${invoice._id}/print`)}>Imprimer</ActionButton>
                     <ActionButton className="delete" onClick={() => handleDeleteClick(invoice._id)}>Supprimer</ActionButton>
                   </Actions>
                 </TableCell>

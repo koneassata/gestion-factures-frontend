@@ -16,7 +16,7 @@ import InvoiceListPage from './pages/InvoiceListPage';
 import CurrencyListPage from './pages/CurrencyListPage';
 import InvoiceDetailPage from './pages/InvoiceDetailPage';
 import EditInvoicePage from './pages/EditInvoicePage';
-import PrintInvoicePage from './pages/PrintInvoicePage'; // <-- NOUVEL IMPORT ICI
+import PrintInvoicePage, { PrintInvoiceViewPage } from './pages/PrintInvoicePage'; // <-- NOUVEL IMPORT
 
 // Importation du contexte d'authentification
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -92,6 +92,10 @@ const AppContent = () => {
                   <PrintInvoicePage /> {/* Utilise le composant PrintInvoicePage */}
                 </PrivateRoute>
               }
+            />
+            <Route
+              path="/invoices/:id/print-view"
+              element={<PrivateRoute><PrintInvoiceViewPage /></PrivateRoute>}
             />
 
             {/* Route de fallback pour les chemins non trouvés */}
